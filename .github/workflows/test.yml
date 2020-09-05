@@ -15,6 +15,6 @@ jobs:
       with:
         version: ${{ matrix.emacs_version }}
     - name: Install emacs-module.h
-      run: cp $HOME/.nix-profile/include/emacs-module.h /usr/include/ || ls -l $HOME/.nix-profile/include
+      run: sudo cp $HOME/.nix-profile/include/emacs-module.h /usr/include/
     - name: Build jq-impl
       run: mkdir build && cd build && cmake .. && cmake --build .
