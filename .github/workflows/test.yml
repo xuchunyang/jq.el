@@ -15,6 +15,10 @@ jobs:
       with:
         version: ${{ matrix.emacs_version }}
     - name: Install emacs-module.h
-      run: sudo cp $HOME/.nix-profile/include/emacs-module.h /usr/include/
+      run: sudo cp -v $HOME/.nix-profile/include/emacs-module.h /usr/include/
     - name: Build jq-impl
       run: mkdir build && cd build && cmake .. && cmake --build .
+    - name: Byte-compile jq.el
+      run: emacs -Q --batch -L build -f batch-byte-compile jq.el
+    - name: Run tests
+      run: emacs -Q --batch -L build -L . -l test/jq-test.el -f ert-run-tests-batch-and-exit
