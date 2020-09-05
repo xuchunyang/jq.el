@@ -18,6 +18,8 @@ jobs:
       run: sudo cp -v $HOME/.nix-profile/include/emacs-module.h /usr/include/
     - name: Build jq-impl
       run: mkdir build && cd build && cmake .. && cmake --build .
+    - name: Install libstdc++.so.6
+      run: sudo apt-get install lib32stdc++6
     - name: Byte-compile jq.el
       run: emacs -Q --batch -L build -f batch-byte-compile jq.el
     - name: Run tests
