@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         emacs_version:
@@ -18,8 +18,6 @@ jobs:
       run: sudo cp -v $HOME/.nix-profile/include/emacs-module.h /usr/include/
     - name: Build jq-impl
       run: mkdir build && cd build && cmake .. && cmake --build .
-    - name: Install libstdc++.so.6
-      run: sudo apt-get install libstdc++6-amd64-cross
     - name: Byte-compile jq.el
       run: emacs -Q --batch -L build -f batch-byte-compile jq.el
     - name: Run tests
